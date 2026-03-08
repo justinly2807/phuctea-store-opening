@@ -1,0 +1,10 @@
+{
+  "name": "phuctea-store-opening-manager",
+  "version": "1.0.0",
+  "description": "Phuc Tea Franchise - Store Opening Management Web App",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "start": "npx serve . -p 3000"
+  }
+}
