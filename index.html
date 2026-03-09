@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phúc Tea - Quản lý Khai trương</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -168,25 +168,61 @@
       .sidebar { display: none; }
       .bottom-nav { display: flex; }
       .main-content { padding: 16px; padding-bottom: calc(var(--bottom-nav-h) + 16px); }
-      .main-header { padding: 0 16px; }
-      .main-header h1 { font-size: 17px; }
+      /* Header mobile */
+      .main-header { padding: 10px 16px; height:auto; min-height:var(--header-h); flex-wrap:wrap; gap:8px; }
+      .main-header h1 { font-size: 16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:55vw; }
+      #headerActions { display:flex; flex-wrap:wrap; gap:6px; }
+      #headerActions .btn-sm { font-size:12px; padding:6px 12px; }
+      /* Summary dashboard */
       .summary-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .summary-card { padding: 14px; }
       .summary-card .sc-value { font-size: 24px; }
+      /* Store cards */
       .store-card { grid-template-columns: 1fr; }
       .store-card .sc-progress { text-align: left; }
-      .task-table-wrap { overflow-x: auto; }
-      .modal { max-width: 95vw; }
-      .tabs { overflow-x: auto; }
-      .tab-btn { white-space: nowrap; padding: 10px 14px; font-size: 13px; }
+      /* Task table → mobile cards */
       .task-table-wrap { display:none; }
       .task-cards-mobile { display:block; }
-      .notif-dropdown { width:280px; right:-40px; }
+      /* Tabs */
+      .tabs { overflow-x: auto; width:100%; margin-bottom:8px !important; }
+      .tab-btn { white-space: nowrap; padding: 12px 14px; font-size: 13px; flex:1; text-align:center; }
+      /* Filters */
       .filter-bar { flex-direction:column; }
       .filter-bar input, .filter-bar select { width:100%; }
       .task-filter-bar { flex-direction:column; }
       .task-filter-bar input, .task-filter-bar select { width:100%; }
-      .chart-container { height:200px; }
+      /* iOS: prevent auto-zoom on input focus (must be ≥16px) */
+      input, select, textarea { font-size:16px !important; }
+      /* Modal → bottom sheet style on mobile */
+      .modal-overlay { align-items:flex-end; }
+      .modal { max-width:100vw; width:100%; max-height:90vh; border-radius:16px 16px 0 0; margin:0; }
+      .modal-body { padding:16px; -webkit-overflow-scrolling:touch; }
+      .modal-footer { padding:12px 16px; position:sticky; bottom:0; background:var(--card); border-top:1px solid var(--border); }
+      /* Notification dropdown */
+      .notif-dropdown { position:fixed; top:var(--header-h); left:8px; right:8px; width:auto; max-height:60vh; border-radius:var(--radius); }
+      /* Touch targets ≥ 44px */
+      .btn-icon { font-size:20px; padding:10px; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; }
+      .bottom-nav-item { padding:10px 12px; font-size:11px; min-width:48px; min-height:48px; justify-content:center; }
+      .bottom-nav-item .bnav-icon { font-size:22px; }
+      .password-toggle { padding:12px; font-size:20px; right:4px; }
+      /* Task card meta */
+      .tcm-meta { gap:8px 12px; font-size:13px; padding-top:8px; border-top:1px solid var(--border); }
+      .tcm-meta select { width:100% !important; max-width:none !important; min-height:40px; }
+      /* Toast above bottom nav */
+      .toast { right:16px; left:16px; bottom:calc(var(--bottom-nav-h) + 16px); text-align:center; }
+      /* Chart */
+      .chart-container { height:220px; }
+      /* Safe delete dialog */
+      .safe-del-card .btn-danger, .safe-del-card .btn-secondary { padding:14px; font-size:15px; min-height:48px; }
+      /* Hide on mobile */
+      .hide-mobile { display:none !important; }
+      .user-table th:nth-child(5),.user-table td:nth-child(5),
+      .user-table th:nth-child(6),.user-table td:nth-child(6) { display:none; }
+      /* Store info flex → stack on mobile */
+      .store-info-flex > div { min-width:100% !important; }
+      /* Quiz radio buttons */
+      .quiz-option input[type="radio"] { width:20px; height:20px; min-width:20px; }
+      .quiz-option { min-height:48px; }
     }
     body.dark-mode { --bg:#0f1419; --card:#1a1f2e; --text:#e2e8f0; --text-secondary:#94a3b8; --border:#2d3748; --green-light:#1a3a2a; --gold-light:#2a2520; --shadow:0 1px 3px rgba(0,0,0,0.3); --shadow-lg:0 10px 25px rgba(0,0,0,0.4); }
     body.dark-mode input,body.dark-mode select,body.dark-mode textarea { background:var(--card); color:var(--text); border-color:var(--border); }
@@ -194,6 +230,13 @@
     body.dark-mode .sidebar { background:#0a0f1a; }
     body.dark-mode .task-table tr:hover { background:#1e2538; }
     body.dark-mode .store-card:hover { box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    body.dark-mode .bottom-nav { border-top:1px solid #3a4556; box-shadow:0 -2px 10px rgba(0,0,0,0.3); }
+    body.dark-mode .badge-gray { background:#2d3748; color:#94a3b8; }
+    body.dark-mode .badge-yellow { background:#422006; color:#fbbf24; }
+    body.dark-mode .badge-green { background:#052e16; color:#4ade80; }
+    body.dark-mode .badge-red { background:#350808; color:#fca5a5; }
+    :focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+    button:focus-visible { outline:2px solid var(--green); outline-offset:2px; box-shadow:0 0 0 4px rgba(26,92,56,0.2); }
     .progress-fill.pf-red { background:linear-gradient(90deg,#dc2626,#ef4444); }
     .progress-fill.pf-yellow { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
     .filter-bar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
@@ -431,7 +474,7 @@ function getUsersForStore(storeCode) {
 function userDropdown(onchangeStr, currentVal, storeCode) {
   const users = storeCode ? getUsersForStore(storeCode) : _userList;
   const opts = '<option value="">-- Chọn --</option>' + users.map(u=>'<option value="'+esc(u.display_name||u.username)+'"'+((u.display_name||u.username)===currentVal?' selected':'')+'>'+esc(u.display_name||u.username)+'</option>').join('');
-  return '<select onchange="'+onchangeStr+'" style="width:100px;font-size:12px">'+opts+'</select>';
+  return '<select onchange="'+onchangeStr+'" style="width:100%;max-width:160px;font-size:14px;padding:6px 8px;min-height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text)">'+opts+'</select>';
 }
 
 async function handleLogin() {
@@ -579,7 +622,7 @@ function filterStoresUI(){
   else if(_storeSort==='date')list.sort((a,b)=>{if(!a.grand_opening_date)return 1;if(!b.grand_opening_date)return -1;return new Date(a.grand_opening_date)-new Date(b.grand_opening_date);});
   else list.sort((a,b)=>(a.store_name||'').localeCompare(b.store_name||''));
   const c=document.getElementById('storeListContainer');if(!c)return;
-  c.innerHTML=list.length===0?'<div class="empty-state"><div class="empty-icon">🔍</div><p>Không tìm thấy cửa hàng</p></div>':list.map(s=>'<div class="store-card" onclick="navigate(\'#store/'+esc(s.store_code)+'\')"><div><div class="sc-name">'+esc(s.store_name)+' <span class="badge '+(STORE_STATUS_BADGE[s.status]||'badge-gray')+'">'+(STORE_STATUS_LABELS[s.status]||s.status)+'</span></div><div class="sc-info">'+esc(s.store_code)+' &bull; '+esc(s.address||'')+''+(s.city?', '+esc(s.city):'')+'</div><div class="sc-info">'+(s.partner_name?'ĐT: '+esc(s.partner_name)+(s.partner_phone?' - '+esc(s.partner_phone):''):'')+'</div><div class="sc-info" style="margin-top:4px">SO: '+(s.soft_opening_date||'N/A')+' | GO: '+(s.grand_opening_date||'N/A')+countdownText(s.grand_opening_date)+'</div></div><div class="sc-progress"><div class="sc-pct" style="color:'+((s.project_progress||0)>=70?'var(--success)':(s.project_progress||0)>=50?'var(--warning)':'var(--error)')+'">'+(s.project_progress||0)+'%</div><div class="progress-bar" style="width:140px"><div class="progress-fill'+pfColor(s.project_progress||0)+'" style="width:'+(s.project_progress||0)+'%"></div></div><div style="font-size:11px;color:var(--text-secondary);margin-top:4px">DA '+(s.project_completed||0)+'/'+(s.project_total||0)+' | MKT '+(s.marketing_completed||0)+'/'+(s.marketing_total||0)+'</div>'+(isAdmin()?'<div style="margin-top:8px;display:flex;gap:6px"><button class="btn-icon" onclick="event.stopPropagation();openEditStoreModal(\''+esc(s.store_code)+'\')">✏️</button><button class="btn-danger btn-sm" onclick="event.stopPropagation();safeDeleteStore(\''+esc(s.store_code)+'\')">🗑</button></div>':'')+'</div></div>').join('');
+  c.innerHTML=list.length===0?'<div class="empty-state"><div class="empty-icon">🔍</div><p>Không tìm thấy cửa hàng</p></div>':list.map(s=>'<div class="store-card" onclick="navigate(\'#store/'+esc(s.store_code)+'\')"><div><div class="sc-name">'+esc(s.store_name)+' <span class="badge '+(STORE_STATUS_BADGE[s.status]||'badge-gray')+'">'+(STORE_STATUS_LABELS[s.status]||s.status)+'</span></div><div class="sc-info">'+esc(s.store_code)+' &bull; '+esc(s.address||'')+''+(s.city?', '+esc(s.city):'')+'</div><div class="sc-info">'+(s.partner_name?'ĐT: '+esc(s.partner_name)+(s.partner_phone?' - '+esc(s.partner_phone):''):'')+'</div><div class="sc-info" style="margin-top:4px">SO: '+(s.soft_opening_date||'N/A')+' | GO: '+(s.grand_opening_date||'N/A')+countdownText(s.grand_opening_date)+'</div></div><div class="sc-progress"><div class="sc-pct" style="color:'+((s.project_progress||0)>=70?'var(--success)':(s.project_progress||0)>=50?'var(--warning)':'var(--error)')+'">'+(s.project_progress||0)+'%</div><div class="progress-bar" style="width:100%;max-width:160px"><div class="progress-fill'+pfColor(s.project_progress||0)+'" style="width:'+(s.project_progress||0)+'%"></div></div><div style="font-size:11px;color:var(--text-secondary);margin-top:4px">DA '+(s.project_completed||0)+'/'+(s.project_total||0)+' | MKT '+(s.marketing_completed||0)+'/'+(s.marketing_total||0)+'</div>'+(isAdmin()?'<div style="margin-top:8px;display:flex;gap:6px"><button class="btn-icon" onclick="event.stopPropagation();openEditStoreModal(\''+esc(s.store_code)+'\')">✏️</button><button class="btn-danger btn-sm" onclick="event.stopPropagation();safeDeleteStore(\''+esc(s.store_code)+'\')">🗑</button></div>':'')+'</div></div>').join('');
 }
 
 function openAddStoreModal() {
@@ -657,7 +700,7 @@ async function loadStoreDetail(storeCode) {
     const sc = esc(storeCode);
     const needInit = ed && (!pHasData || !mHasData);
     mc.innerHTML =
-      '<div class="card" style="margin-bottom:20px"><div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start">'+
+      '<div class="card" style="margin-bottom:20px"><div class="store-info-flex" style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start">'+
         '<div style="flex:1;min-width:200px">'+
           '<div style="font-size:13px;color:var(--text-secondary)">Mã: <strong>'+sc+'</strong>'+(isAdmin()?' <button class=\"btn-icon\" onclick=\"openEditStoreModal(\''+sc+'\')\">✏️</button>':'')+'</div>'+
           '<div style="font-size:13px;color:var(--text-secondary);margin-top:4px">Địa chỉ: '+esc(store.address||'')+''+(store.city?', '+esc(store.city):'')+'</div>'+
@@ -975,7 +1018,7 @@ async function submitQuiz(chapterId) {
 async function loadUsers() {
   const mc = document.getElementById('mainContent');
   if (!isAdmin()) { mc.innerHTML = '<div class="empty-state"><p>Bạn không có quyền truy cập</p></div>'; return; }
-  document.getElementById('headerActions').innerHTML = '<button class="btn-primary btn-sm" onclick="openAddUserModal()">+ Thêm người dùng</button> <button class="btn-secondary btn-sm" onclick="downloadUserTemplate()">📥 File mẫu Excel</button> <button class="btn-export btn-sm" onclick="document.getElementById(\'excelFileInput\').click()">📤 Import Excel</button><input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="importUsersFromExcel(this)">';
+  document.getElementById('headerActions').innerHTML = '<button class="btn-primary btn-sm" onclick="openAddUserModal()">+ Thêm người dùng</button> <button class="btn-secondary btn-sm hide-mobile" onclick="downloadUserTemplate()">📥 File mẫu Excel</button> <button class="btn-export btn-sm hide-mobile" onclick="document.getElementById(\'excelFileInput\').click()">📤 Import Excel</button><input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="importUsersFromExcel(this)">';
   try {
     const { data: users, error } = await sb.from('profiles').select('*').order('created_at',{ascending:false});
     if (error) throw error;
